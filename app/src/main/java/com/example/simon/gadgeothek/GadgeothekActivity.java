@@ -1,16 +1,47 @@
 package com.example.simon.gadgeothek;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class GadgeothekActivity extends AppCompatActivity {
+import com.example.simon.gadgeothek.fragments.AusleihListFragment;
+import com.example.simon.gadgeothek.fragments.LoginFragment;
+import com.example.simon.gadgeothek.fragments.RegistrationFragment;
+import com.example.simon.gadgeothek.fragments.ReservationFragment;
+import com.example.simon.gadgeothek.services.Callback;
+import com.example.simon.gadgeothek.services.LibraryService;
+
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class GadgeothekActivity extends AppCompatActivity implements View.OnClickListener{
+
+    enum Pages {LOGIN, REGISTRATION, AUSLEIH, RESERVATION}
+
+    private Stack<Pages> pages = new Stack<>();
+
+    private UserRegistrationData userRegistrationData;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        LibraryService.setServerAddress("http://mge7.dev.ifs.hsr.ch/public");
+
+        userRegistrationData = new UserRegistrationData();
+        fragmentManager = getFragmentManager();
+
+        pages.push(Pages.LOGIN);
+        switchTo(new LoginFragment());
+
     }
 
 
@@ -35,4 +66,52 @@ public class GadgeothekActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (pages.peek()) {
+            case LOGIN:
+                pages.push(Pages.REGISTRATION);
+                switchTo(new RegistrationFragment());
+                break;
+            case REGISTRATION:
+                pages.push(Pages.AUSLEIH);
+                switchTo(new AusleihListFragment());
+                break;
+            case AUSLEIH:
+                pages.pop();
+                pages.push(Pages.RESERVATION);
+                switchTo(new ReservationFragment());
+
+                break;
+            case RESERVATION:
+                pages.pop();
+                pages.push(Pages.AUSLEIH);
+                switchTo(new AusleihListFragment());
+                break;
+        }
+    }
+
+    private void switchTo(Fragment fragment) {
+        Bundle args = new Bundle();
+        args.putSerializable(Constant.REGISTRATION_DATA, userRegistrationData);
+        fragment.setArguments(args);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.placeholder, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void onBackPressed() {
+        // Wenn der Stack leer wird will der Benutzer die App wohl beenden, dies erreichen wir
+        // durch ein finishen der Activity
+        if (fragmentManager.getBackStackEntryCount() <= 1) {
+            finish();
+        } else {
+            pages.pop();
+            getFragmentManager().popBackStack();
+        }
+    }
+
+
 }
