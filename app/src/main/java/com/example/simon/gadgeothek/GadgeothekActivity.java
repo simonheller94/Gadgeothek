@@ -71,8 +71,14 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (pages.peek()) {
             case LOGIN:
-                pages.push(Pages.REGISTRATION);
-                switchTo(new RegistrationFragment());
+                if(v.getId()==R.id.loginButton){
+                    pages.push(Pages.AUSLEIH);
+                    switchTo(new AusleihListFragment());
+                }
+                else{
+                    pages.push(Pages.REGISTRATION);
+                    switchTo(new RegistrationFragment());
+                }
                 break;
             case REGISTRATION:
                 pages.push(Pages.AUSLEIH);
