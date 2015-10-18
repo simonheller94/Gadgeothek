@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -27,4 +28,6 @@ dependencies {
     compile 'com.ning:async-http-client:1.9.31'
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'org.slf4j:slf4j-simple:1.7.12'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:support-v13:+'
 }

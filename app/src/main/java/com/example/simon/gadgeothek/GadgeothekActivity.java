@@ -4,20 +4,23 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.provider.SyncStateContract;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.simon.gadgeothek.fragments.AusleihListFragment;
+import com.example.simon.gadgeothek.fragments.LoanListFragment;
 import com.example.simon.gadgeothek.fragments.LoginFragment;
 import com.example.simon.gadgeothek.fragments.RegistrationFragment;
 import com.example.simon.gadgeothek.fragments.ReservationFragment;
 import com.example.simon.gadgeothek.services.Callback;
 import com.example.simon.gadgeothek.services.LibraryService;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class GadgeothekActivity extends AppCompatActivity implements View.OnClickListener{
@@ -34,6 +37,11 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         LibraryService.setServerAddress("http://mge7.dev.ifs.hsr.ch/public");
 
         userRegistrationData = new UserRegistrationData();
@@ -41,9 +49,7 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
         pages.push(Pages.LOGIN);
         switchTo(new LoginFragment());
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,6 +70,20 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
             return true;
         }
 
+        if (id == R.id.logout){
+            LibraryService.logout(new Callback<Boolean>() {
+                @Override
+                public void onCompletion(Boolean input) {
+                    switchTo(new LoginFragment());
+                }
+
+                @Override
+                public void onError(String message) {
+
+                }
+            });
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -71,18 +91,12 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (pages.peek()) {
             case LOGIN:
-                if(v.getId()==R.id.loginButton){
-                    pages.push(Pages.AUSLEIH);
-                    switchTo(new AusleihListFragment());
-                }
-                else{
-                    pages.push(Pages.REGISTRATION);
-                    switchTo(new RegistrationFragment());
-                }
+                pages.push(Pages.REGISTRATION);
+                switchTo(new RegistrationFragment());
                 break;
             case REGISTRATION:
                 pages.push(Pages.AUSLEIH);
-                switchTo(new AusleihListFragment());
+                //switchTo(new LoanListFragment());
                 break;
             case AUSLEIH:
                 pages.pop();
@@ -93,12 +107,12 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
             case RESERVATION:
                 pages.pop();
                 pages.push(Pages.AUSLEIH);
-                switchTo(new AusleihListFragment());
+                //switchTo(new LoanListFragment());
                 break;
         }
     }
 
-    private void switchTo(Fragment fragment) {
+    public void switchTo(Fragment fragment) {
         Bundle args = new Bundle();
         args.putSerializable(Constant.REGISTRATION_DATA, userRegistrationData);
         fragment.setArguments(args);
@@ -109,14 +123,19 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void onBackPressed() {
-        // Wenn der Stack leer wird will der Benutzer die App wohl beenden, dies erreichen wir
-        // durch ein finishen der Activity
+
         if (fragmentManager.getBackStackEntryCount() <= 1) {
             finish();
         } else {
             pages.pop();
             getFragmentManager().popBackStack();
         }
+    }
+
+    public void test(){
+
+        //LibraryService.register();
+
     }
 
 
