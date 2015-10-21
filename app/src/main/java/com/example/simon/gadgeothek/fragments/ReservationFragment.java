@@ -10,9 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.simon.gadgeothek.GadgeothekActivity;
 import com.example.simon.gadgeothek.R;
+import com.example.simon.gadgeothek.domain.Gadget;
+import com.example.simon.gadgeothek.services.Callback;
+import com.example.simon.gadgeothek.services.LibraryService;
+
+import java.util.List;
 
 public class ReservationFragment extends Fragment {
 
@@ -22,22 +29,18 @@ public class ReservationFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_reservation, container, false);
 
         //root.findViewById(R.id.loginButton).setOnClickListener((View.OnClickListener) getActivity());
-        //root.findViewById(R.id.registrationButton).setOnClickListener((View.OnClickListener) getActivity());
 
+        LibraryService.getGadgets(new Callback<List<Gadget>>() {
+            @Override
+            public void onCompletion(List<Gadget> input) {
 
-        Spinner staticSpinner = (Spinner) root.findViewById(R.id.static_spinner);
+            }
 
-        // Create an ArrayAdapter using the string array and a default spinner
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-                .createFromResource(getActivity(), R.array.brew_array,
-                        android.R.layout.simple_spinner_item);
+            @Override
+            public void onError(String message) {
 
-        // Specify the layout to use when the list of choices appears
-        staticAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        staticSpinner.setAdapter(staticAdapter);
+            }
+        });
 
         Spinner dynamicSpinner = (Spinner) root.findViewById(R.id.dynamic_spinner);
 
@@ -58,6 +61,36 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // TODO Auto-generated method stub
+            }
+        });
+
+        Button reserve = (Button) root.findViewById(R.id.reservation);
+        //Gadget _gadget = (Gadget) root.findViewById(R.id.dynamic_spinner);
+
+        reserve.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                /*LibraryService.reserveGadget(_gadget, new Callback<Boolean>() {
+                    @Override
+                    public void onCompletion(Boolean input) {
+                        if (input) {
+                            ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+
+                        } else {
+                            ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+
+                    }
+                });*/
+
             }
         });
 

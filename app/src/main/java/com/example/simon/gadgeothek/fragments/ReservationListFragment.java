@@ -16,8 +16,6 @@ public class ReservationListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_reservation_list, container, false);
 
-        //root.findViewById(R.id.loginButton).setOnClickListener((View.OnClickListener) getActivity());
-        //root.findViewById(R.id.registrationButton).setOnClickListener((View.OnClickListener) getActivity());
 
         return root;
 

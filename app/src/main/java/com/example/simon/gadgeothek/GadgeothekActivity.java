@@ -29,7 +29,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
     private Stack<Pages> pages = new Stack<>();
 
-    private UserRegistrationData userRegistrationData;
     private FragmentManager fragmentManager;
 
     @Override
@@ -44,7 +43,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
         LibraryService.setServerAddress("http://mge7.dev.ifs.hsr.ch/public");
 
-        userRegistrationData = new UserRegistrationData();
         fragmentManager = getFragmentManager();
 
         pages.push(Pages.LOGIN);
@@ -114,7 +112,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
     public void switchTo(Fragment fragment) {
         Bundle args = new Bundle();
-        args.putSerializable(Constant.REGISTRATION_DATA, userRegistrationData);
         fragment.setArguments(args);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.placeholder, fragment);

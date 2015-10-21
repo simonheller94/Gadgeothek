@@ -2,6 +2,7 @@ package com.example.simon.gadgeothek.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.simon.gadgeothek.GadgeothekActivity;
 import com.example.simon.gadgeothek.R;
 import com.example.simon.gadgeothek.services.LibraryService;
 import com.example.simon.gadgeothek.PagerAdapter;
@@ -53,6 +55,19 @@ public class TabFragment extends Fragment{
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+
+
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ((GadgeothekActivity) getActivity()).switchTo(new ReservationFragment());
+
 
             }
         });

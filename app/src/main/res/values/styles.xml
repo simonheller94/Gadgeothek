@@ -8,5 +8,5 @@
     </style>
     <item name="primary" type="color">#047ea3</item>
     <item name="primary_dark" type="color">#090a7c</item>
-    <item name="accent" type="color">#A87796</item>
+    <item name="accent" type="color">#090a7c</item>
 </resources>

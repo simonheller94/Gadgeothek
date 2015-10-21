@@ -39,9 +39,9 @@ public class RegistrationFragment extends Fragment {
         Button register = (Button) root.findViewById(R.id.register);
 
         EditText fname = (EditText) root.findViewById(R.id.fname);
-        EditText email = (EditText) root.findViewById(R.id.emailAddressEditText);
+        EditText email = (EditText) root.findViewById(R.id.email);
         EditText adress = (EditText) root.findViewById(R.id.adress);
-        EditText password = (EditText) root.findViewById(R.id.passwordEditText);
+        EditText password = (EditText) root.findViewById(R.id.password);
         EditText mnumber = (EditText) root.findViewById(R.id.mnumber);
 
         final String _fname = fname.getText().toString();
