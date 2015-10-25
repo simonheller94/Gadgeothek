@@ -46,8 +46,6 @@ public class ReservationListFragment extends Fragment {
                 for (int i = 0; i < input.size(); i++) {
                     reservations.add(input.get(i));
                 }
-                Snackbar.make(root.findViewById(R.id.fragment_reservationlist), "Success", Snackbar.LENGTH_LONG)
-                        .show();
 
                 adapter = new ReservationListAdapter(reservations);
                 recyclerView.setAdapter(adapter);

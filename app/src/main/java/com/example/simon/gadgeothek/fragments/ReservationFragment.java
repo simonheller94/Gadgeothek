@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.simon.gadgeothek.GadgeothekActivity;
 import com.example.simon.gadgeothek.adapter.ReservationAdapter;
 import com.example.simon.gadgeothek.R;
 import com.example.simon.gadgeothek.domain.Gadget;
@@ -47,6 +48,7 @@ public class ReservationFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         final ArrayList<Gadget> gadgets = new ArrayList<>();
+
 
         LibraryService.getGadgets(new Callback<List<Gadget>>() {
             @Override
@@ -93,6 +95,7 @@ public class ReservationFragment extends Fragment {
                     @Override
                     public void onCompletion(Boolean input) {
                         if (input) {
+                            //((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.TAB);
                             //((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
                             Snackbar.make(root.findViewById(R.id.fragment_reservation), "success", Snackbar.LENGTH_LONG)
                                     .show();

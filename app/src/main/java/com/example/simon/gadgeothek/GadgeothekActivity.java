@@ -18,6 +18,7 @@ import com.example.simon.gadgeothek.fragments.LoanListFragment;
 import com.example.simon.gadgeothek.fragments.LoginFragment;
 import com.example.simon.gadgeothek.fragments.RegistrationFragment;
 import com.example.simon.gadgeothek.fragments.ReservationFragment;
+import com.example.simon.gadgeothek.fragments.TabFragment;
 import com.example.simon.gadgeothek.services.Callback;
 import com.example.simon.gadgeothek.services.LibraryService;
 
@@ -25,9 +26,9 @@ import java.util.Stack;
 
 public class GadgeothekActivity extends AppCompatActivity implements View.OnClickListener{
 
-    enum Pages {LOGIN, REGISTRATION, AUSLEIH, RESERVATION}
+    public enum Pages {LOGIN, REGISTRATION, TAB, RESERVATION}
 
-    private Stack<Pages> pages = new Stack<>();
+    public Stack<Pages> pages = new Stack<>();
 
     private FragmentManager fragmentManager;
 
@@ -67,6 +68,8 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
             LibraryService.logout(new Callback<Boolean>() {
                 @Override
                 public void onCompletion(Boolean input) {
+                    pages.clear();
+                    pages.push(Pages.LOGIN);
                     switchTo(new LoginFragment());
                 }
 
@@ -89,21 +92,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
                 pages.push(Pages.REGISTRATION);
                 switchTo(new RegistrationFragment());
                 break;
-            case REGISTRATION:
-                pages.push(Pages.AUSLEIH);
-                //switchTo(new LoanListFragment());
-                break;
-            case AUSLEIH:
-                pages.pop();
-                pages.push(Pages.RESERVATION);
-                switchTo(new ReservationFragment());
-
-                break;
-            case RESERVATION:
-                pages.pop();
-                pages.push(Pages.AUSLEIH);
-                //switchTo(new LoanListFragment());
-                break;
         }
     }
 
@@ -116,13 +104,20 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
         fragmentTransaction.commit();
     }
 
+    @Override
     public void onBackPressed() {
 
-        if (fragmentManager.getBackStackEntryCount() <= 1) {
-            finish();
-        } else {
+        if(pages.peek() == Pages.RESERVATION){
             pages.pop();
-            getFragmentManager().popBackStack();
+            switchTo(new TabFragment());
+        }else {
+
+            if (fragmentManager.getBackStackEntryCount() <= 1) {
+                finish();
+            } else {
+                pages.pop();
+                getFragmentManager().popBackStack();
+            }
         }
     }
 

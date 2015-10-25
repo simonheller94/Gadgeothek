@@ -57,6 +57,7 @@ public class RegistrationFragment extends Fragment {
                     @Override
                     public void onCompletion(Boolean input) {
                         if (input) {
+                            ((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.LOGIN);
                             ((GadgeothekActivity) getActivity()).switchTo(new LoginFragment());
 
                         } else {

@@ -65,10 +65,8 @@ public class TabFragment extends Fragment{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.RESERVATION);
                 ((GadgeothekActivity) getActivity()).switchTo(new ReservationFragment());
-
-
             }
         });
 

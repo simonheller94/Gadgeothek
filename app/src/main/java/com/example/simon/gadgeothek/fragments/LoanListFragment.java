@@ -50,8 +50,6 @@ public class LoanListFragment extends Fragment {
                 for (int i = 0; i < input.size(); i++) {
                     loans.add(input.get(i));
                 }
-                Snackbar.make(root.findViewById(R.id.fragment_loanlist), "Success", Snackbar.LENGTH_LONG)
-                        .show();
 
                 adapter = new LoanListAdapter(loans);
                 recyclerView.setAdapter(adapter);

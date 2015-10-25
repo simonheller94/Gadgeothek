@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.simon.gadgeothek.R;
@@ -25,7 +26,8 @@ public class ReservationListAdapter extends RecyclerView.Adapter<ReservationList
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View v = layoutInflater.inflate(R.layout.reservationlist_rowlayout, parent, false);
         TextView textView = (TextView) v.findViewById(R.id.reservationlist);
-        ReservationListViewHolder viewHolder = new ReservationListViewHolder(v, textView);
+        Button button = (Button) v.findViewById(R.id.delete);
+        ReservationListViewHolder viewHolder = new ReservationListViewHolder(v, textView, button);
         return viewHolder;
     }
 
@@ -33,10 +35,23 @@ public class ReservationListAdapter extends RecyclerView.Adapter<ReservationList
     public void onBindViewHolder(ReservationListViewHolder holder, int position) {
         final Reservation reservation = reservations.get(position);
         holder.textView.setText(reservation.getGadget().getName());
+
+        holder.button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                remove(reservation);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return reservations.size();
+    }
+
+    public void remove(Reservation reservation) {
+        int position = reservations.indexOf(reservation);
+        reservations.remove(position);
+        notifyItemRemoved(position);
     }
 }

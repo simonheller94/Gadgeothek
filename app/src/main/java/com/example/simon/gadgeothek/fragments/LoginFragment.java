@@ -32,9 +32,7 @@ public class LoginFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
 
-        //root.findViewById(R.id.loginButton).setOnClickListener((View.OnClickListener) getActivity());
         root.findViewById(R.id.registrationButton).setOnClickListener((View.OnClickListener) getActivity());
-
         Button login = (Button) root.findViewById(R.id.loginButton);
 
         final EditText email = (EditText) root.findViewById(R.id.emailAddressEditText);
@@ -52,6 +50,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onCompletion(Boolean input) {
                         if (input) {
+                            ((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.TAB);
                             ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
 
                         } else {
@@ -68,6 +67,7 @@ public class LoginFragment extends Fragment {
                 });
             }
         });
+
         return root;
     }
 

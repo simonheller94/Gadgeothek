@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:focusable="false"
+        android:textSize="75px"
+        android:text="Text"
         android:focusableInTouchMode="false"
          />
 
