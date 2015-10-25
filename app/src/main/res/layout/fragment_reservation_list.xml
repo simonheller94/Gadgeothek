@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/reservationlist"
+    android:id="@+id/fragment_reservationlist"
     tools:context="com.example.simon.gadgeothek.fragments.AusleihListFragment"
     android:background="@drawable/bg_tabs">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+
 
 </FrameLayout>

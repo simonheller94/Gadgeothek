@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ public class RegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_registration, container, false);
+        final View root = inflater.inflate(R.layout.fragment_registration, container, false);
 
         Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
 
@@ -38,30 +39,29 @@ public class RegistrationFragment extends Fragment {
 
         Button register = (Button) root.findViewById(R.id.register);
 
-        EditText fname = (EditText) root.findViewById(R.id.fname);
-        EditText email = (EditText) root.findViewById(R.id.email);
-        EditText adress = (EditText) root.findViewById(R.id.adress);
-        EditText password = (EditText) root.findViewById(R.id.password);
-        EditText mnumber = (EditText) root.findViewById(R.id.mnumber);
-
-        final String _fname = fname.getText().toString();
-        final String _email = email.getText().toString();
-        final String _adress = adress.getText().toString();
-        final String _pw = password.getText().toString();
-        final String _mnumber = mnumber.getText().toString();
+        final EditText fname = (EditText) root.findViewById(R.id.fname);
+        final EditText email = (EditText) root.findViewById(R.id.email);
+        final EditText password = (EditText) root.findViewById(R.id.password);
+        final EditText mnumber = (EditText) root.findViewById(R.id.mnumber);
 
         register.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
+                String _fname = fname.getText().toString();
+                String _email = email.getText().toString();
+                String _pw = password.getText().toString();
+                String _mnumber = mnumber.getText().toString();
+
                 LibraryService.register(_email, _pw, _fname, _mnumber, new Callback<Boolean>() {
                     @Override
                     public void onCompletion(Boolean input) {
                         if (input) {
-                            ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+                            ((GadgeothekActivity) getActivity()).switchTo(new LoginFragment());
 
                         } else {
-                            ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+                            Snackbar.make(root.findViewById(R.id.fragment_registration), "Registrationdata is false", Snackbar.LENGTH_LONG)
+                                    .show();
 
                         }
 
@@ -69,7 +69,8 @@ public class RegistrationFragment extends Fragment {
 
                     @Override
                     public void onError(String message) {
-                        ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+                        Snackbar.make(root.findViewById(R.id.fragment_registration), "Registration error", Snackbar.LENGTH_LONG)
+                                .show();
 
                     }
                 });

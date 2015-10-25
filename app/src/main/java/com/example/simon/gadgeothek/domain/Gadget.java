@@ -15,6 +15,8 @@ public class Gadget {
     private String manufacturer;
     private String name;
 
+    private boolean selected;
+
     public Gadget(String name) {
         this.name = name;
         inventoryNumber = "" + Math.abs(UUID.randomUUID().getMostSignificantBits());
@@ -81,5 +83,13 @@ public class Gadget {
         } else if (!inventoryNumber.equals(other.inventoryNumber))
             return false;
         return true;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

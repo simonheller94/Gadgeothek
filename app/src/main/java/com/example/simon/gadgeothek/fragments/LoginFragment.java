@@ -53,8 +53,6 @@ public class LoginFragment extends Fragment {
                     public void onCompletion(Boolean input) {
                         if (input) {
                             ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
-                            Snackbar.make(root.findViewById(R.id.fragment_login), "Login success", Snackbar.LENGTH_LONG)
-                                    .show();
 
                         } else {
                             Snackbar.make(root.findViewById(R.id.fragment_login), "Logindata is false", Snackbar.LENGTH_LONG)

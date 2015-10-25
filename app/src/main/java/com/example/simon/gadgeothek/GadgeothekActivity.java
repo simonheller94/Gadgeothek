@@ -63,11 +63,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         if (id == R.id.logout){
             LibraryService.logout(new Callback<Boolean>() {
                 @Override
@@ -77,6 +72,8 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
                 @Override
                 public void onError(String message) {
+                    Snackbar.make(findViewById(R.id.placeholder), "Logout error", Snackbar.LENGTH_LONG)
+                            .show();
 
                 }
             });
@@ -127,12 +124,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
             pages.pop();
             getFragmentManager().popBackStack();
         }
-    }
-
-    public void test(){
-
-        //LibraryService.register();
-
     }
 
 
