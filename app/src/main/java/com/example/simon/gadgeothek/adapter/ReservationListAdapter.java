@@ -1,5 +1,6 @@
 package com.example.simon.gadgeothek.adapter;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.simon.gadgeothek.R;
 import com.example.simon.gadgeothek.domain.Reservation;
+import com.example.simon.gadgeothek.services.Callback;
+import com.example.simon.gadgeothek.services.LibraryService;
 
 import java.util.List;
 
@@ -39,7 +42,17 @@ public class ReservationListAdapter extends RecyclerView.Adapter<ReservationList
         holder.button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                remove(reservation);
+                LibraryService.deleteReservation(reservation, new Callback<Boolean>() {
+                    @Override
+                    public void onCompletion(Boolean input) {
+                        remove(reservation);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+
+                    }
+                });
             }
         });
     }

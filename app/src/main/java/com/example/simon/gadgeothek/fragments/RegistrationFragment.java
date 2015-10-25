@@ -61,7 +61,7 @@ public class RegistrationFragment extends Fragment {
                             ((GadgeothekActivity) getActivity()).switchTo(new LoginFragment());
 
                         } else {
-                            Snackbar.make(root.findViewById(R.id.fragment_registration), "Registrationdata is false", Snackbar.LENGTH_LONG)
+                            Snackbar.make(root.findViewById(R.id.fragment_registration), "registrationdata incomplete", Snackbar.LENGTH_LONG)
                                     .show();
 
                         }

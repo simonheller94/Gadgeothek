@@ -1,8 +1,10 @@
 package com.example.simon.gadgeothek;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.provider.SyncStateContract;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -107,11 +109,24 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onBackPressed() {
 
-        if(pages.peek() == Pages.RESERVATION){
+        if(pages.peek() == Pages.REGISTRATION){
+            pages.pop();
+            switchTo(new LoginFragment());
+        }else if(pages.peek() == Pages.RESERVATION) {
             pages.pop();
             switchTo(new TabFragment());
+        }else if(pages.peek() == Pages.TAB){
+            new AlertDialog.Builder(this)
+                    .setMessage("Are you sure you want to exit?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                       GadgeothekActivity.this.finish();
+                            }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }else {
-
             if (fragmentManager.getBackStackEntryCount() <= 1) {
                 finish();
             } else {

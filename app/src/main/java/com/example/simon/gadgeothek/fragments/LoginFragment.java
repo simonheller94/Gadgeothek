@@ -46,25 +46,30 @@ public class LoginFragment extends Fragment {
                 final String _email = email.getText().toString();
                 final String _pw = password.getText().toString();
 
+                if(_email.equals("") && _pw.equals("")) {
+                    Snackbar.make(root.findViewById(R.id.fragment_login), "please fill in logindata", Snackbar.LENGTH_LONG)
+                            .show();
+                }else{
                 LibraryService.login(_email, _pw, new Callback<Boolean>() {
-                    @Override
-                    public void onCompletion(Boolean input) {
-                        if (input) {
-                            ((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.TAB);
-                            ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
+                        @Override
+                        public void onCompletion(Boolean input) {
+                            if (input) {
+                                ((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.TAB);
+                                ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
 
-                        } else {
-                            Snackbar.make(root.findViewById(R.id.fragment_login), "Logindata is false", Snackbar.LENGTH_LONG)
+                            } else {
+                                Snackbar.make(root.findViewById(R.id.fragment_login), "logindata false", Snackbar.LENGTH_LONG)
+                                        .show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String message) {
+                            Snackbar.make(root.findViewById(R.id.fragment_login), "login error", Snackbar.LENGTH_LONG)
                                     .show();
                         }
-                    }
-
-                    @Override
-                    public void onError(String message) {
-                        Snackbar.make(root.findViewById(R.id.fragment_login), "Login error", Snackbar.LENGTH_LONG)
-                                .show();
-                    }
-                });
+                    });
+                }
             }
         });
 

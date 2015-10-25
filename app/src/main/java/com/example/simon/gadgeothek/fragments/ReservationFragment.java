@@ -56,8 +56,6 @@ public class ReservationFragment extends Fragment {
                 for (int i = 0; i < input.size(); i++) {
                     gadgets.add(input.get(i));
                 }
-                Snackbar.make(root.findViewById(R.id.fragment_reservation), "Success", Snackbar.LENGTH_LONG)
-                        .show();
 
                 adapter = new ReservationAdapter(gadgets);
                 recyclerView.setAdapter(adapter);
@@ -95,13 +93,11 @@ public class ReservationFragment extends Fragment {
                     @Override
                     public void onCompletion(Boolean input) {
                         if (input) {
-                            //((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.TAB);
-                            //((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
-                            Snackbar.make(root.findViewById(R.id.fragment_reservation), "success", Snackbar.LENGTH_LONG)
-                                    .show();
+                            ((GadgeothekActivity) getActivity()).pages.push(GadgeothekActivity.Pages.TAB);
+                            ((GadgeothekActivity) getActivity()).switchTo(new TabFragment());
 
                         } else {
-                            Snackbar.make(root.findViewById(R.id.fragment_reservation), "fail", Snackbar.LENGTH_LONG)
+                            Snackbar.make(root.findViewById(R.id.fragment_reservation), "couldnt reserve gadget", Snackbar.LENGTH_LONG)
                                     .show();
 
                         }
