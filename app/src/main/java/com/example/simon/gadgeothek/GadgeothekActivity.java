@@ -5,21 +5,16 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.provider.SyncStateContract;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.simon.gadgeothek.fragments.LoanListFragment;
 import com.example.simon.gadgeothek.fragments.LoginFragment;
 import com.example.simon.gadgeothek.fragments.RegistrationFragment;
-import com.example.simon.gadgeothek.fragments.ReservationFragment;
 import com.example.simon.gadgeothek.fragments.TabFragment;
 import com.example.simon.gadgeothek.services.Callback;
 import com.example.simon.gadgeothek.services.LibraryService;
@@ -29,7 +24,6 @@ import java.util.Stack;
 public class GadgeothekActivity extends AppCompatActivity implements View.OnClickListener{
 
     public enum Pages {LOGIN, REGISTRATION, TAB, RESERVATION}
-
     public Stack<Pages> pages = new Stack<>();
 
     private FragmentManager fragmentManager;
@@ -41,13 +35,13 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //define ServerAddress for pre-defined users, etc.
         LibraryService.setServerAddress("http://mge7.dev.ifs.hsr.ch/public");
 
         fragmentManager = getFragmentManager();
 
+        //start with the loginfragment
         pages.push(Pages.LOGIN);
         switchTo(new LoginFragment());
     }
@@ -66,6 +60,7 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //logoutbutton in toolbar
         if (id == R.id.logout){
             LibraryService.logout(new Callback<Boolean>() {
                 @Override
@@ -97,6 +92,7 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    //switch fragments
     public void switchTo(Fragment fragment) {
         Bundle args = new Bundle();
         fragment.setArguments(args);

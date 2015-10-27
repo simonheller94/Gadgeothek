@@ -39,7 +39,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationViewHold
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //set your object's last status
+                //set object's last status
                 gadget.setSelected(isChecked);
             }
 

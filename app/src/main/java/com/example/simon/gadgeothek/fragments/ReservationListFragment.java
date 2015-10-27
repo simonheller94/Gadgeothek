@@ -9,16 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.simon.gadgeothek.R;
 import com.example.simon.gadgeothek.adapter.ReservationListAdapter;
-import com.example.simon.gadgeothek.domain.Gadget;
 import com.example.simon.gadgeothek.domain.Reservation;
 import com.example.simon.gadgeothek.services.Callback;
 import com.example.simon.gadgeothek.services.LibraryService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ReservationListFragment extends Fragment {
 
@@ -33,8 +31,6 @@ public class ReservationListFragment extends Fragment {
 
         recyclerView = (RecyclerView) root.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 

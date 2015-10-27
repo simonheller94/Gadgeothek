@@ -46,6 +46,7 @@ public class LoginFragment extends Fragment {
                 final String _email = email.getText().toString();
                 final String _pw = password.getText().toString();
 
+                //check if strings are empty
                 if(_email.equals("") && _pw.equals("")) {
                     Snackbar.make(root.findViewById(R.id.fragment_login), "please fill in logindata", Snackbar.LENGTH_LONG)
                             .show();

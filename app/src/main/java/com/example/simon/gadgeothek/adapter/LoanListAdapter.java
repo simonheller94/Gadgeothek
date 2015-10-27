@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.example.simon.gadgeothek.R;
 import com.example.simon.gadgeothek.domain.Loan;
-import com.example.simon.gadgeothek.domain.Reservation;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.example.simon.gadgeothek.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -27,11 +26,8 @@ public class RegistrationFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_registration, container, false);
 
         Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
-
         toolbar.setTitle("Registration");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-
-        //for crate home button
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
 

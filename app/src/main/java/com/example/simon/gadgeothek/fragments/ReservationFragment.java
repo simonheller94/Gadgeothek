@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.simon.gadgeothek.GadgeothekActivity;
 import com.example.simon.gadgeothek.adapter.ReservationAdapter;
@@ -19,9 +21,6 @@ import com.example.simon.gadgeothek.R;
 import com.example.simon.gadgeothek.domain.Gadget;
 import com.example.simon.gadgeothek.services.Callback;
 import com.example.simon.gadgeothek.services.LibraryService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ReservationFragment extends Fragment {
 
@@ -42,8 +41,6 @@ public class ReservationFragment extends Fragment {
 
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
@@ -76,8 +73,8 @@ public class ReservationFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //check for the selected gadget
                 Gadget data = null;
-
                 List<Gadget> gadgetlist = ((ReservationAdapter) adapter).getGadgets();
 
                 for(int i = 0; i < gadgetlist.size(); i++){

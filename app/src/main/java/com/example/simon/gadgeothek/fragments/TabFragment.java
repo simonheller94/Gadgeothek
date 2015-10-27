@@ -28,7 +28,6 @@ public class TabFragment extends Fragment{
         Toolbar toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-
         toolbar.setTitle("Gadgeothek");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 
@@ -57,8 +56,6 @@ public class TabFragment extends Fragment{
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-
-
         });
 
         FloatingActionButton fab = (FloatingActionButton) root.findViewById(R.id.fab);

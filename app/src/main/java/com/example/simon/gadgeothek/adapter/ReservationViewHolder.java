@@ -3,7 +3,6 @@ package com.example.simon.gadgeothek.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 public class ReservationViewHolder extends RecyclerView.ViewHolder {
     public View parent;

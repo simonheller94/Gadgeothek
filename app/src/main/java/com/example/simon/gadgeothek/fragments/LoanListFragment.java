@@ -8,21 +8,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.support.v7.widget.RecyclerView;
-
-import com.example.simon.gadgeothek.R;
-import com.example.simon.gadgeothek.adapter.LoanListAdapter;
-import com.example.simon.gadgeothek.adapter.ReservationListAdapter;
-import com.example.simon.gadgeothek.domain.Loan;
-import com.example.simon.gadgeothek.domain.Reservation;
-import com.example.simon.gadgeothek.services.Callback;
-import com.example.simon.gadgeothek.services.LibraryService;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.simon.gadgeothek.R;
+import com.example.simon.gadgeothek.adapter.LoanListAdapter;
+import com.example.simon.gadgeothek.domain.Loan;
+import com.example.simon.gadgeothek.services.Callback;
+import com.example.simon.gadgeothek.services.LibraryService;
 
 public class LoanListFragment extends Fragment {
 
@@ -37,8 +31,6 @@ public class LoanListFragment extends Fragment {
 
         recyclerView = (RecyclerView) root.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-
-
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
