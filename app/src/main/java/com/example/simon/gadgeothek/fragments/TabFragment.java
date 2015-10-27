@@ -1,6 +1,7 @@
 package com.example.simon.gadgeothek.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -9,8 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.simon.gadgeothek.GadgeothekActivity;
 import com.example.simon.gadgeothek.R;
@@ -31,6 +35,14 @@ public class TabFragment extends Fragment{
         toolbar.setTitle("Gadgeothek");
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 
+        //let the keyboard disappear
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
+        //create tabs
         TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Loan"));
         tabLayout.addTab(tabLayout.newTab().setText("Reservation"));
@@ -67,10 +79,17 @@ public class TabFragment extends Fragment{
             }
         });
 
-
+        setHasOptionsMenu(true);
     return root;
 
 }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_main, menu);
+    }
 
     @Override
     public void onAttach(Activity activity) {

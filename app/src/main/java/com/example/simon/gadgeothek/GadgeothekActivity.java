@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
     public enum Pages {LOGIN, REGISTRATION, TAB, RESERVATION}
     public Stack<Pages> pages = new Stack<>();
 
+    final Context context = this;
+
     private FragmentManager fragmentManager;
 
     @Override
@@ -47,13 +50,6 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -62,21 +58,35 @@ public class GadgeothekActivity extends AppCompatActivity implements View.OnClic
 
         //logoutbutton in toolbar
         if (id == R.id.logout){
-            LibraryService.logout(new Callback<Boolean>() {
-                @Override
-                public void onCompletion(Boolean input) {
-                    pages.clear();
-                    pages.push(Pages.LOGIN);
-                    switchTo(new LoginFragment());
-                }
+            new AlertDialog.Builder(context)
+                    .setMessage("Are you sure you want to logout?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            LibraryService.logout(new Callback<Boolean>() {
+                                @Override
+                                public void onCompletion(Boolean input) {
 
-                @Override
-                public void onError(String message) {
-                    Snackbar.make(findViewById(R.id.placeholder), "Logout error", Snackbar.LENGTH_LONG)
-                            .show();
 
-                }
-            });
+                                    pages.clear();
+                                    pages.push(Pages.LOGIN);
+                                    switchTo(new LoginFragment());
+                                }
+
+                                @Override
+                                public void onError(String message) {
+                                    if(pages.peek()!=Pages.LOGIN){
+                                        Snackbar.make(findViewById(R.id.placeholder), "Logout error", Snackbar.LENGTH_LONG)
+                                                .show();
+                                    }
+
+                                }
+                            });
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+
         }
 
         return super.onOptionsItemSelected(item);
